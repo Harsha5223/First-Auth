@@ -1,41 +1,47 @@
 import { useUser } from "../context/UserContext";
 
 const Dashboard = () => {
-  const { user, logout } = useUser();
+  const { user, logout: signOut } = useUser();
 
-  const role = user.role;
+  const userRole = user.role;
 
   return (
-    <div>
-      <h2>Dashboard</h2>
-      <p>Logged in as: <b>{role.toUpperCase()}</b></p>
-
-      <h3>Resources</h3>
-
-      {/* Admin Settings */}
+    <main className="dashboard-page">
+      <h1>Dashboard</h1>
       <p>
-        Admin Settings —
-        {role === "admin" ? " Allowed ✅" : " Locked 🔒"}
+        Logged in as: <b>{userRole.toUpperCase()}</b>
       </p>
 
-      {/* Edit Content */}
-      <p>
-        Edit Content —
-        {role === "admin" || role === "editor"
-          ? " Allowed ✅"
-          : " Locked 🔒"}
-      </p>
+      <section className="resources">
+        <h2>Available Resources</h2>
 
-      {/* View Reports */}
-      <p>
-        View Reports —
-        {role === "admin" || role === "editor" || role === "viewer"
-          ? " Allowed ✅"
-          : " Locked 🔒"}
-      </p>
+        {/* Admin  */}
+        <p>
+          Admin Settings —
+          {userRole === "admin" ? " Allowed ✅" : " Locked 🔒"}
+        </p>
 
-      <button onClick={logout}>Logout</button>
-    </div>
+        {/* Edit  */}
+        <p>
+          Edit Content —
+          {userRole === "admin" || userRole === "editor"
+            ? " Allowed ✅"
+            : " Locked 🔒"}
+        </p>
+
+        {/* View  */}
+        <p>
+          View Reports —
+          {userRole === "admin" || userRole === "editor" || userRole === "viewer"
+            ? " Allowed ✅"
+            : " Locked 🔒"}
+        </p>
+      </section>
+
+      <button onClick={signOut} className="btn">
+        Sign out
+      </button>
+    </main>
   );
 };
 

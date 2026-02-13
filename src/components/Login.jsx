@@ -2,22 +2,32 @@ import { useUser } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { login } = useUser();
+  
+  const { login: signIn } = useUser();
   const navigate = useNavigate();
 
-  const handleLogin = (role) => {
-    login(role);
+  const handleSignIn = (userRole) => {
+    signIn(userRole);
     navigate("/dashboard");
   };
 
   return (
-    <div>
-      <h2>Login</h2>
+    <main className="login-page">
+      <h1>Welcome</h1>
+      <h2>Please sign in</h2>
 
-      <button onClick={() => handleLogin("admin")}>Login as Admin</button>
-      <button onClick={() => handleLogin("editor")}>Login as Editor</button>
-      <button onClick={() => handleLogin("viewer")}>Login as Viewer</button>
-    </div>
+      <div className="button-group">
+        <button onClick={() => handleSignIn("admin")} className="btn">
+          Sign in as Admin
+        </button>
+        <button onClick={() => handleSignIn("editor")} className="btn">
+          Sign in as Editor
+        </button>
+        <button onClick={() => handleSignIn("viewer")} className="btn">
+          Sign in as Viewer
+        </button>
+      </div>
+    </main>
   );
 };
 
